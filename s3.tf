@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "one" {
-  bucket = "murali.devops"
+  bucket = "murali-monolithic-bucket"
 }
 
 resource "aws_s3_bucket_ownership_controls" "two" {
@@ -25,7 +25,7 @@ status = "Enabled"
 terraform {
 backend "s3" {
 region = "ap-south-1"
-bucket = "murali.devops"
+bucket = "murali-monolithic-bucket"
 key = "prod/terraform.tfstate"
 }
 }
