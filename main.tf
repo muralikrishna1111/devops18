@@ -1,11 +1,11 @@
 resource "aws_launch_template" "web_server_as" {
     name = "myproject"
-    image_id           = "ami-0cae6d6fe6048ca2c"
+    image_id           = "ami-02b8269d5e85954ef"
     vpc_security_group_ids = [aws_security_group.web_server.id]
     instance_type = "t3.micro"
-    key_name = "minimajor"
+    key_name = "monolithic-project-key"
     tags = {
-        Name = "DevOps"
+        Name = "Monolithic-project"
     }
     
 }
@@ -15,7 +15,7 @@ resource "aws_launch_template" "web_server_as" {
   resource "aws_elb" "web_server_lb"{
      name = "web-server-lb"
      security_groups = [aws_security_group.web_server.id]
-     subnets = ["subnet-097b4975cf1130493", "subnet-01ee7e5094f09f366"]
+     subnets = ["subnet-09600d19f60654f54", "subnet-0b6d5443d8630238a"]
      listener {
       instance_port     = 8000
       instance_protocol = "http"
@@ -33,7 +33,7 @@ resource "aws_autoscaling_group" "web_server_asg" {
     desired_capacity     = 2
     health_check_type    = "EC2"
     load_balancers       = [aws_elb.web_server_lb.name]
-    availability_zones    = ["us-east-1a", "us-east-1b"] 
+    availability_zones    = ["ap-south-1a", "ap-south-1b"] 
     launch_template {
         id      = aws_launch_template.web_server_as.id
         version = "$Latest"
