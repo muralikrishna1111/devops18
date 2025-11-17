@@ -22,4 +22,11 @@ versioning_configuration {
 status = "Enabled"
 }
 }
+terraform {
+backend "s3" {
+region = "ap-south-1"
+bucket = "murali.devops"
+key = "prod/terraform.tfstate"
+}
+}
 
